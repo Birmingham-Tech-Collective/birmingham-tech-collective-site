@@ -73,9 +73,12 @@
           </div>
 
           <div>
-            <!-- NOTE: replace the formspree placeholder action below with the real endpoint on launch. -->
             <div id="form-status" class="form-status" role="alert" aria-live="assertive" hidden></div>
-            <form id="contact-form" class="form" action="https://formspree.io/f/placeholder" method="POST" novalidate>
+            <form id="contact-form" class="form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+              <input type="hidden" name="access_key" value="6a5d58ad-1456-4f79-a6d7-25453c42dbee">
+              <input type="hidden" name="subject" value="New message — Birmingham Tech Collective">
+              <input type="hidden" name="redirect" value="https://birminghamtechcollective.org/contact.html?sent=1">
+              <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" aria-hidden="true">
               <div class="field">
                 <label for="name"><span class="term" aria-hidden="true">name&gt;</span> Name <span class="req" aria-hidden="true">*</span><span class="sr-only">required</span></label>
                 <input id="name" name="name" type="text" required autocomplete="name" aria-describedby="name-error">

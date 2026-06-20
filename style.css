@@ -136,25 +136,26 @@ a.link, .measure a:not(.btn):not(.arrow-link):not(.brand) { text-underline-offse
 .arrow-link:hover { color: var(--color-accent-hover); gap: var(--space-3); }
 
 /* ---------- mobile nav ---------- */
-.mobile-nav { position: fixed; inset: 0; z-index: 150; display: none; }
+.mobile-nav { position: fixed; inset: 0; z-index: 999; display: none; }
 .mobile-nav[data-open="true"] { display: block; }
-.mobile-nav__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
+.mobile-nav__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.72); z-index: 1; }
 .mobile-nav__panel {
-  position: absolute; top: 0; right: 0; height: 100%; width: min(86vw, 360px);
+  position: absolute; top: 0; right: 0; z-index: 2;
+  height: 100%; width: min(86vw, 360px);
   background: var(--color-surface); border-left: 1px solid var(--color-border);
   padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-2);
   overflow-y: auto;
 }
 .mobile-nav__top { display: flex; justify-content: flex-end; margin-bottom: var(--space-3); }
 .mobile-nav__panel > a {
-  font-family: var(--font-mono); font-size: var(--text-lg); color: var(--color-text-muted);
+  display: block;
+  font-family: var(--font-mono); font-size: var(--text-lg); color: var(--color-text);
   text-decoration: none; padding: var(--space-3) 0; border-bottom: 1px solid var(--color-border);
 }
-.mobile-nav__panel > a:hover { color: var(--color-text); }
-.mobile-nav__panel > a[aria-current="page"] { color: var(--color-text); font-weight: 600; }
+.mobile-nav__panel > a:hover, .mobile-nav__panel > a:focus { color: var(--color-accent); }
+.mobile-nav__panel > a[aria-current="page"] { color: var(--color-accent); font-weight: 600; }
 .mobile-nav__panel > a[aria-current="page"]::before { content: "› "; color: var(--color-accent); }
-.mobile-nav__panel .btn { margin-top: var(--space-5); border: none; }
-.mobile-nav__panel .btn:last-child { border-bottom: none; }
+.mobile-nav__panel .btn { margin-top: var(--space-5); border-bottom: none; }
 
 /* ---------- hero / terminal ---------- */
 .hero { padding-block: var(--space-9) var(--space-8); }

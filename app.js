@@ -9,7 +9,6 @@
   var html = document.documentElement;
   var systemDark = window.matchMedia('(prefers-color-scheme: dark)');
   var currentTheme = systemDark.matches ? 'dark' : 'light';
-  // default already dark via CSS; only set attr when light or on manual change
   applyTheme(currentTheme);
 
   function applyTheme(theme) {
@@ -17,7 +16,7 @@
     html.setAttribute('data-theme', theme);
     var toggles = document.querySelectorAll('[data-theme-toggle]');
     toggles.forEach(function (btn) {
-      var toDark = theme === 'light'; // clicking goes to opposite
+      var toDark = theme === 'light';
       btn.setAttribute('aria-label', toDark ? 'Switch to dark mode' : 'Switch to light mode');
       btn.innerHTML = theme === 'dark' ? sunIcon() : moonIcon();
     });
@@ -33,7 +32,6 @@
       applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
     });
   });
-  // follow system change only if user hasn't manually toggled — keep simple: always follow until first click
   var manualSet = false;
   document.querySelectorAll('[data-theme-toggle]').forEach(function (b) {
     b.addEventListener('click', function () { manualSet = true; });
@@ -53,21 +51,24 @@
     function focusables() {
       return Array.prototype.slice.call(
         mnav.querySelectorAll('a[href], button:not([disabled])')
-      ).filter(function (el) { return el.offsetParent !== null; });
+      );
     }
     function openMenu() {
       lastFocused = document.activeElement;
       mnav.setAttribute('data-open', 'true');
       hamburger.setAttribute('aria-expanded', 'true');
-      document.body.style.overflow = 'hidden';
-      var f = focusables();
-      if (f.length) f[0].focus();
+      document.body.style.overflowY = 'hidden';
       document.addEventListener('keydown', onKeydown);
+      // defer focus until panel has painted
+      requestAnimationFrame(function () {
+        var f = focusables();
+        if (f.length) f[0].focus();
+      });
     }
     function closeMenu() {
       mnav.setAttribute('data-open', 'false');
       hamburger.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
+      document.body.style.overflowY = '';
       document.removeEventListener('keydown', onKeydown);
       if (lastFocused) lastFocused.focus();
     }
@@ -92,7 +93,6 @@
   /* ---------------- Contact form ---------------- */
   var form = document.getElementById('contact-form');
   if (form) {
-    // query-string topic prefill
     var params = new URLSearchParams(window.location.search);
     var topic = params.get('topic');
     var topicSelect = document.getElementById('topic');
@@ -141,17 +141,15 @@
         if (status) { status.hidden = false; status.setAttribute('data-state', 'error'); status.textContent = 'Some fields need attention. Please check the highlighted fields.'; }
         return;
       }
-      // Validation passed — allow native POST to Web3Forms.
       if (status) { status.hidden = false; status.setAttribute('data-state', 'ok'); status.textContent = 'Sending…'; }
     });
   }
 
   /* ---------------- Konami code easter egg ---------------- */
-  var devMode = false; // session-only flag, no localStorage
+  var devMode = false;
   var KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
   var buffer = [];
   document.addEventListener('keydown', function (e) {
-    // ignore when typing in a field (so 'b'/'a' don't trigger), but arrows are fine
     var tag = (e.target && e.target.tagName) || '';
     if ((tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') && e.key.length === 1) return;
     var key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
@@ -163,7 +161,6 @@
     }
   });
 
-  // keyboard alternative (hidden link revealed on Tab)
   var konamiKey = document.querySelector('[data-konami-activate]');
   if (konamiKey) {
     konamiKey.addEventListener('click', function (e) { e.preventDefault(); activateDevMode(); });
@@ -174,11 +171,9 @@
     devMode = true;
     document.documentElement.setAttribute('data-devmode', 'true');
 
-    // announce via aria-live
     var live = document.getElementById('konami-live');
     if (live) live.textContent = 'Developer mode unlocked. Open source on GitHub.';
 
-    // type out greet line in the hero terminal (if present)
     var greet = document.getElementById('greet-line');
     if (greet) {
       var text = '> system::greet("hello, hacker") -> "welcome to the collective"';
@@ -187,7 +182,7 @@
       } else {
         greet.textContent = '';
         var i = 0;
-        var total = 1500; // ~1.5s
+        var total = 1500;
         var step = Math.max(12, Math.floor(total / text.length));
         var timer = setInterval(function () {
           greet.textContent += text.charAt(i);
@@ -197,7 +192,6 @@
       }
     }
 
-    // show toast
     var toast = document.getElementById('konami-toast');
     if (toast) {
       toast.setAttribute('data-open', 'true');

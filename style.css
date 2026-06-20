@@ -67,8 +67,8 @@ a.link, .measure a:not(.btn):not(.arrow-link):not(.brand) { text-underline-offse
   border-bottom: 1px solid var(--color-border);
 }
 .header-inner { display: flex; align-items: center; gap: var(--space-4); min-height: 64px; }
-.brand { display: inline-flex; align-items: center; text-decoration: none; flex-shrink: 0; }
-.brand svg { height: 26px; width: auto; color: var(--color-text); }
+.brand { display: inline-flex; align-items: center; text-decoration: none; flex-shrink: 0; overflow: hidden; max-width: 200px; }
+.brand svg { height: 26px; width: 100%; max-width: 200px; color: var(--color-text); overflow: hidden; }
 .brand .slash { fill: var(--color-accent); }
 .brand .dot { fill: var(--color-accent-bright); }
 
@@ -330,7 +330,7 @@ a.link, .measure a:not(.btn):not(.arrow-link):not(.brand) { text-underline-offse
 .footer-top { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: var(--space-7); }
 @media (max-width: 760px) { .footer-top { grid-template-columns: 1fr 1fr; gap: var(--space-6); } }
 @media (max-width: 480px) { .footer-top { grid-template-columns: 1fr; } }
-.footer-brand svg { height: 24px; width: auto; color: var(--color-text); margin-bottom: var(--space-4); }
+.footer-brand svg { height: 24px; width: auto; max-width: 100%; color: var(--color-text); margin-bottom: var(--space-4); }
 .footer-brand .slash { fill: var(--color-accent); }
 .footer-brand .dot { fill: var(--color-accent-bright); }
 .footer-desc { color: var(--color-text-muted); font-size: var(--text-sm); max-width: 38ch; line-height: 1.6; }

@@ -32,7 +32,7 @@ Pushes to `main` automatically deploy to GitHub Pages via the workflow in [`.git
 
 ## Before launch
 
-- [ ] Replace the FormSpree placeholder in [`contact.html`](contact.html) with a real form ID
+- [x] Replace the FormSpree placeholder in [`contact.html`](contact.html) with a real form ID (Web3Forms)
 - [x] Add the CIC company registration number to the footer in all HTML files (17200561)
 
 ## Code style

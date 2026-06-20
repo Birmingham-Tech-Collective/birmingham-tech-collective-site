@@ -141,7 +141,7 @@
         if (status) { status.hidden = false; status.setAttribute('data-state', 'error'); status.textContent = 'Some fields need attention. Please check the highlighted fields.'; }
         return;
       }
-      // Validation passed — allow native POST to formspree placeholder.
+      // Validation passed — allow native POST to Web3Forms.
       if (status) { status.hidden = false; status.setAttribute('data-state', 'ok'); status.textContent = 'Sending…'; }
     });
   }

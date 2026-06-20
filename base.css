@@ -53,20 +53,21 @@ ul, ol { list-style: none; padding: 0; }
 
 /* ---- Dark mode (default) ---- */
 :root, [data-theme="dark"] {
-  --color-bg: #0A0A0B;
-  --color-surface: #111114;
-  --color-surface-2: #16161A;
-  --color-surface-offset: #1C1C21;
-  --color-border: #26262C;
-  --color-border-strong: #393940;
-  --color-text: #F4F4F5;
-  --color-text-muted: #A1A1AA;
-  --color-text-faint: #71717A;
-  --color-accent: #4ADE80;        /* link + button bg + dot */
-  --color-accent-bright: #4ADE80;
-  --color-accent-soft: #4ADE8033;
-  --color-accent-hover: #22C55E;
-  --color-on-accent: #0A0A0B;     /* text on green button */
+  --color-bg: #000000;
+  --color-surface: #0D0D0D;
+  --color-surface-2: #121212;
+  --color-surface-offset: #1A1A1A;
+  --color-border: #222222;
+  --color-border-strong: #333333;
+  --color-text: #FFFFFF;
+  --color-text-muted: #CCCCCC;
+  --color-text-faint: #888888;
+  --color-heading: #22D3EE;        /* cyan-blue for h1/h2/h3 */
+  --color-accent: #22D3EE;
+  --color-accent-bright: #22D3EE;
+  --color-accent-soft: #22D3EE33;
+  --color-accent-hover: #06B6D4;
+  --color-on-accent: #000000;
   --color-danger: #F87171;
   color-scheme: dark;
 }
@@ -82,10 +83,11 @@ ul, ol { list-style: none; padding: 0; }
   --color-text: #18181B;
   --color-text-muted: #52525B;
   --color-text-faint: #71717A;
-  --color-accent: #15803D;        /* emerald-700: links + button bg, AA on light */
-  --color-accent-bright: #16A34A; /* decorative dot only */
-  --color-accent-soft: #16A34A1A;
-  --color-accent-hover: #166534;
+  --color-heading: #0E7490;        /* darker cyan for light mode readability */
+  --color-accent: #0E7490;
+  --color-accent-bright: #0891B2;
+  --color-accent-soft: #0891B21A;
+  --color-accent-hover: #0C6478;
   --color-on-accent: #FFFFFF;
   --color-danger: #DC2626;
   color-scheme: light;

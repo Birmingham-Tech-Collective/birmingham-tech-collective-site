@@ -26,6 +26,20 @@
 }
 .skip-link:focus { top: var(--space-4); }
 
+/* ---------- scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
 /* ---------- typography ---------- */
 h1, h2, h3 { font-family: var(--font-sans); font-weight: 700; letter-spacing: -0.04em; line-height: 1.08; color: var(--color-heading); }
 h1 { font-size: var(--text-hero); font-weight: 800; }

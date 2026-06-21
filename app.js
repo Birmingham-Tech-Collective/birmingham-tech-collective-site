@@ -1,6 +1,7 @@
 /* app.js — Birmingham Tech Collective v2
-   Theme toggle (in-memory), mobile nav with focus trap, accessible form,
-   and the Konami-code developer easter egg. No localStorage (sandbox blocks it). */
+   Theme toggle (in-memory), mobile nav with focus trap, scroll reveal,
+   accessible form, and the Konami-code developer easter egg.
+   No localStorage (sandbox blocks it). */
 (function () {
   'use strict';
   var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -40,6 +41,41 @@
     if (!manualSet) applyTheme(e.matches ? 'dark' : 'light');
   });
 
+  /* ---------------- Scroll reveal ---------------- */
+  var revealEls = document.querySelectorAll('.reveal');
+
+  if (prefersReduced) {
+    // Skip animation entirely — just make everything visible immediately
+    revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+  } else if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    revealEls.forEach(function (el) {
+      // Anything already visible in the viewport on load reveals immediately
+      var rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        // Small staggered delay for in-viewport hero elements
+        var delay = parseFloat(el.getAttribute('data-reveal-delay') || '0');
+        setTimeout(function () { el.classList.add('is-visible'); }, delay * 1000);
+      } else {
+        observer.observe(el);
+      }
+    });
+  } else {
+    // Fallback for browsers without IntersectionObserver
+    revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+
   /* ---------------- Mobile nav with focus trap ---------------- */
   var hamburger = document.querySelector('.hamburger');
   var mnav = document.getElementById('mobile-nav');
@@ -59,7 +95,6 @@
       hamburger.setAttribute('aria-expanded', 'true');
       document.body.style.overflowY = 'hidden';
       document.addEventListener('keydown', onKeydown);
-      // defer focus until panel has painted
       requestAnimationFrame(function () {
         var f = focusables();
         if (f.length) f[0].focus();
